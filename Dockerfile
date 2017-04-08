@@ -26,7 +26,7 @@ RUN add-apt-repository ppa:webupd8team/java -y && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 #Solr
-RUN wget -O - http://www-us.apache.org/dist/lucene/solr/6.4.1/solr-6.4.1.tgz | tar xz && \
+RUN wget -O - http://www-us.apache.org/dist/lucene/solr/6.5.0/solr-6.5.0.tgz | tar xz && \
     mv solr* solr
 
 
