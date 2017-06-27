@@ -1,10 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:16.04 as base
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
     TERM=xterm
 RUN echo "export > /etc/envvars" >> /root/.bashrc && \
-    echo "export PS1='\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" | tee -a /root/.bashrc /etc/bash.bashrc && \
+    echo "export PS1='\[\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" | tee -a /root/.bashrc /etc/bash.bashrc && \
     echo "alias tcurrent='tail /var/log/*/current -f'" | tee -a /root/.bashrc /etc/bash.bashrc
 
 RUN apt-get update
@@ -15,7 +15,7 @@ RUN apt-get install -y --no-install-recommends runit
 CMD export > /etc/envvars && /usr/sbin/runsvdir-start
 
 # Utilities
-RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync
+RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync gettext-base
 
 #Install Oracle Java 8
 RUN add-apt-repository ppa:webupd8team/java -y && \
@@ -27,7 +27,7 @@ RUN add-apt-repository ppa:webupd8team/java -y && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 #Solr
-RUN wget -O - http://www-us.apache.org/dist/lucene/solr/6.5.0/solr-6.5.0.tgz | tar xz && \
+RUN wget -O - http://www-us.apache.org/dist/lucene/solr/6.6.0/solr-6.6.0.tgz | tar xz && \
     mv solr* solr
 
 
